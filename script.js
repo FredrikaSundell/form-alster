@@ -7,21 +7,25 @@ form.addEventListener('submit', (e) => {
 
   const firstname = e.target.elements.firstname.value
   const lastname = e.target.elements.lastname.value
-  console.log(firstname, lastname)
+  const season = e.target.elements.season.selectedOptions[0].innerText
+  const seasonData = e.target.elements.season.selectedOptions[0].value
 
-  if (!firstname || !lastname) {
+  console.log(seasonData)
+
+  if (!firstname || !lastname || !seasonData) {
     console.log('saknar värden')
     return
   }
-  createTodo(firstname, lastname)
+  createTodo(firstname, lastname, season)
 })
 
 let todoItems = []
 
-const createTodo = (firstname, lastname) => {
+const createTodo = (firstname, lastname, season) => {
   const newTodo = {
     firstname,
     lastname,
+    season,
     id: Date.now(),
   }
   todoItems.push(newTodo)
@@ -32,7 +36,7 @@ const updateList = () => {
   let newListHTML = ''
 
   todoItems.forEach((item) => {
-    newListHTML += `<li data-id='${item.id}'>${item.firstname} ${item.lastname}<button class='delete-button'>x</button></li>`
+    newListHTML += `<li data-id='${item.id}'>${item.firstname} ${item.lastname} ${item.season}<button class='delete-button'>x</button></li>`
   })
   list.innerHTML = newListHTML
 
